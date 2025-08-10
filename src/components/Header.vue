@@ -32,15 +32,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import MenuItem from './MenuItem.vue'
-import axios from 'axios'
+import { ref, onMounted } from "vue";
+import MenuItem from "./MenuItem.vue";
+import axios from "axios";
 
 // 控制抽屜開關狀態
-const drawer = ref(false)
+const drawer = ref(false);
 
 // 儲存選單資料
-const menuItems = ref([])
+const menuItems = ref([]);
 
 // 元件掛載時載入選單資料
 onMounted(async () => {
@@ -48,14 +48,14 @@ onMounted(async () => {
     // const response = await fetch('/menu.json')
     // menuItems.value = await response.json()
     // axios 取得 API 資料
-    const response = await axios.get('http://localhost:5226/weatherforecast')
+    const response = await axios.get("http://localhost:5110/weatherforecast");
     // console.log('完整回應：', response)
     // console.log('回應資料：', response.data)
     // 將取得的資料指派給 menuItems
-    menuItems.value = response.data
+    menuItems.value = response.data;
   } catch (error) {
     // 錯誤處理，避免程式崩潰
     alert(`菜單抓取異常: ${error}`);
   }
-})
+});
 </script>
