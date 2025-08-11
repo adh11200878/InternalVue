@@ -1,30 +1,37 @@
-// stores/snackbar.ts
 import { defineStore } from "pinia";
+
+//枚舉 TS要使用as const方式使用枚舉
+export const MessageType = {
+  Info: "info",
+  Error: "error",
+  Success: "success",
+  Warning: "warning",
+} as const;
+export type MessageTypeEnum = (typeof MessageType)[keyof typeof MessageType];
 
 export const useSnackbarStore = defineStore("snackbar", {
   state: () => ({
     show: false,
     message: "",
     color: "info",
-    icon: "mdi-information", // 預設 icon
-    iconColor: "blue-darken-4", // 預設 icon 顏色
+    icon: "mdi-information",
+    iconColor: "blue-darken-4",
   }),
   actions: {
-    trigger(message: string, color: string) {
+    trigger(message: string, level: MessageTypeEnum) {
       this.message = message;
-      this.color = color;
+      this.color = level;
       this.show = true;
-      // 根據 color 設定 icon 與 iconColor
-      switch (color) {
-        case "error":
+      switch (level) {
+        case MessageType.Error:
           this.icon = "mdi-alert-circle";
           this.iconColor = "red-darken-4";
           break;
-        case "success":
+        case MessageType.Success:
           this.icon = "mdi-check-circle";
           this.iconColor = "green-darken-4";
           break;
-        case "warning":
+        case MessageType.Warning:
           this.icon = "mdi-alert";
           this.iconColor = "orange-darken-4";
           break;
