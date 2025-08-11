@@ -5,7 +5,9 @@
     <v-app-bar-nav-icon @click="drawer = !drawer" />
 
     <!-- 網站標題 -->
-    <v-toolbar-title>我的網站</v-toolbar-title>
+    <router-link to="/" style="text-decoration: none; color: inherit; cursor: pointer;">
+      <v-toolbar-title>我的網站</v-toolbar-title>
+    </router-link>
 
     <!-- 將右側按鈕推到最右邊 -->
     <v-spacer />
