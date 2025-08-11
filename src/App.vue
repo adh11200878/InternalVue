@@ -1,5 +1,6 @@
 <template>
-  <Layout />
+  <router-view />
+
   <v-snackbar v-model="snackbar.show" :color="snackbar.color" timeout="3000" location="top right" elevation="10"
     rounded="lg" class="text-white">
     <div class="d-flex align-center justify-space-between w-100">
@@ -22,8 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import Layout from "./components/Layout.vue";
-import { useSnackbarStore } from "./stores/snackbar";
+import { useSnackbarStore } from "./stores/Snackbar";
 const snackbar = useSnackbarStore();
 </script>
 
