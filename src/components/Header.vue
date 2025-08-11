@@ -21,8 +21,8 @@
     </v-btn>
   </v-app-bar>
 
-  <!-- 側邊抽屜選單 temporary 表示點選外部會自動收合 -->
-  <v-navigation-drawer v-model="drawer" temporary>
+  <!-- 側邊抽屜選單 temporary 表示點選外部會自動收合 預設寬度是256-->
+  <v-navigation-drawer v-model="drawer" temporary :width="300">
     <v-list nav density="comfortable">
       <!-- 使用 MenuItem 元件遞迴渲染選單項目 -->
       <!-- 加上 key，提升渲染效能 -->
