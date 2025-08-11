@@ -5,7 +5,7 @@
     <v-app-bar-nav-icon @click="drawer = !drawer" />
 
     <!-- 網站標題 -->
-    <router-link to="/" style="text-decoration: none; color: inherit; cursor: pointer;">
+    <router-link to="/" class="ml-8" style="text-decoration: none; color: inherit; cursor: pointer;">
       <v-toolbar-title>我的網站</v-toolbar-title>
     </router-link>
 
@@ -61,3 +61,9 @@ onMounted(async () => {
   }
 });
 </script>
+
+<style scoped>
+.v-toolbar-title:hover {
+  opacity: 0.5;
+}
+</style>
