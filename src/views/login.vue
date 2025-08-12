@@ -27,17 +27,16 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '../stores/user'
+import { authLogin } from '../services/auth'
 
 const username = ref('')
 const password = ref('')
 const errorMessage = ref('')
 const router = useRouter()
-const userStore = useUserStore()
 
 const login = async () => {
   errorMessage.value = ''
-  const success = await userStore.login(username.value, password.value)
+  const success = await authLogin(username.value, password.value)
   if (success) {
     router.push('/content')
   } else {

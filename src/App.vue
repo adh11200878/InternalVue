@@ -31,7 +31,6 @@
 
 
 </template>
-
 <script setup lang="ts">
 import { useSnackbarStore } from "./stores/snackbar";
 import { useLoadingStore } from './stores/loading';

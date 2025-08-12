@@ -49,7 +49,7 @@ onMounted(async () => {
   try {
     // const response = await fetch('/menu.json')
     // menuItems.value = await response.json()
-    // axios 取得 API 資料
+    // axiosUtils 取得 API 資料
     const response = await api.get("http://localhost:5110/weatherforecast");
     // console.log('完整回應：', response)
     // console.log('回應資料：', response.data)
