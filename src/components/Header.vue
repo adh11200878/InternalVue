@@ -36,7 +36,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import MenuItem from "./MenuItem.vue";
-import axios from "axios";
+import api from "../utils/axiosUtils";
 
 // 控制抽屜開關狀態
 const drawer = ref(false);
@@ -50,7 +50,7 @@ onMounted(async () => {
     // const response = await fetch('/menu.json')
     // menuItems.value = await response.json()
     // axios 取得 API 資料
-    const response = await axios.get("http://localhost:5110/weatherforecast");
+    const response = await api.get("http://localhost:5110/weatherforecast");
     // console.log('完整回應：', response)
     // console.log('回應資料：', response.data)
     // 將取得的資料指派給 menuItems
