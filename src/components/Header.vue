@@ -17,13 +17,26 @@
       <v-icon>mdi-bell</v-icon>
     </v-btn>
 
-    <!-- 帳號按鈕 -->
-    <v-btn icon>
-      <v-icon>mdi-account</v-icon>
-    </v-btn>
+    <!-- 帳號按鈕 + 下拉選單 -->
+    <v-menu offset-y class="ml-8">
+      <template #activator="{ props }">
+        <v-btn icon v-bind="props">
+          <v-icon>mdi-account</v-icon>
+        </v-btn>
+      </template>
+      <v-list>
+        <v-list-item @click="goToProfile">
+          <v-list-item-title>個人資料</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="logout">
+          <v-list-item-title>登出</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+
   </v-app-bar>
 
-  <!-- 側邊抽屜選單 temporary 表示點選外部會自動收合 預設寬度是256-->
+  <!-- 側邊抽屜選單 temporary 表示點選外部會自動收合 預設寬度是256 -->
   <v-navigation-drawer v-model="drawer" temporary :width="300">
     <v-list nav density="comfortable">
       <!-- 使用 MenuItem 元件遞迴渲染選單項目 -->
