@@ -17,7 +17,7 @@ import { aliases, mdi } from "vuetify/iconsets/mdi";
 
 import App from "./App.vue";
 //引用snackbar替代alert
-import { MessageType, useSnackbarStore } from "./stores/Snackbar";
+import { MessageType, useSnackbarStore } from "./stores/snackbar";
 
 //pinia
 const pinia = createPinia();
