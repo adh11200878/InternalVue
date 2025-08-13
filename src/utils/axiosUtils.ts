@@ -1,4 +1,3 @@
-// 引入 axios 套件用來發送 HTTP 請求
 import axios from "axios";
 
 // 引入 Pinia 的 loading 狀態管理 store
@@ -15,6 +14,13 @@ api.interceptors.request.use(
   (config) => {
     const loading = useLoadingStore(); // 取得 loading store 實例
     loading.show(); // 顯示 loading 畫面
+
+    // 取得 JWT Token 並加入 Authorization 標頭
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
     return config; // 回傳請求設定
   },
   (error) => {
