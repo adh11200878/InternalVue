@@ -4,7 +4,7 @@ import type { LoginModel } from "../models/LoginModel";
 //登入邏輯
 export async function authLogin(loginData: LoginModel): Promise<boolean> {
   try {
-    const response = await api.post("Auth/Login", { loginData });
+    const response = await api.post("Auth/Login", loginData);
     if (response.data) {
       sessionStorage.setItem("token", response.data);
       return true;
