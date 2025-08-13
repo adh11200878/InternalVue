@@ -16,7 +16,7 @@ api.interceptors.request.use(
     loading.show(); // 顯示 loading 畫面
 
     // 取得 JWT Token 並加入 Authorization 標頭
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
