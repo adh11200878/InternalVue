@@ -8,9 +8,10 @@
             <div>歡迎登入</div>
           </v-card-title>
           <v-card-text>
-            <v-text-field v-model="username" label="帳號" prepend-icon="mdi-account" variant="outlined" class="mb-4" />
-            <v-text-field v-model="password" label="密碼" type="password" prepend-icon="mdi-lock" variant="outlined"
-              class="mb-4" @keyup.enter="login" />
+            <v-text-field v-model="loginData.username" label="帳號" prepend-icon="mdi-account" variant="outlined"
+              class="mb-4" />
+            <v-text-field v-model="loginData.password" label="密碼" type="password" prepend-icon="mdi-lock"
+              variant="outlined" class="mb-4" @keyup.enter="login" />
             <v-btn @click="login" color="primary" size="large" block rounded class="mb-2">
               登入
             </v-btn>
@@ -25,22 +26,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { authLogin } from "../services/auth";
 import type { LoginModel } from "../models/LoginModel";
 
-const username = ref("");
-const password = ref("");
 const errorMessage = ref("");
 const router = useRouter();
 
+const loginData: LoginModel = reactive({
+  username: '',
+  password: ''
+});
+
 const login = async () => {
-  //傳入值
-  const loginData: LoginModel = {
-    username: username.value,
-    password: password.value,
-  };
   errorMessage.value = "";
   const success = await authLogin(loginData);
   if (success) {
