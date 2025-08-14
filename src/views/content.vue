@@ -23,7 +23,7 @@ import { ref, onMounted } from 'vue'
 import api from '../utils/axiosUtils'
 import type { Employee, SearchEmployee } from '../models/EmployeeModel'
 //引用snackbar替代alert
-import { MessageType, useSnackbarStore } from "../stores/snackbar";
+import { useSnackbarStore } from "../stores/snackbar";
 
 const employees = ref<Employee[]>([])
 // 新增搜尋欄位綁定
@@ -43,7 +43,7 @@ const SelectData = async () => {
     employees.value = response.data
   } catch (err) {
     const snackbar = useSnackbarStore();
-    snackbar.trigger("請先登入", MessageType.Warning);
+    snackbar.warning("請先登入");
   }
 }
 

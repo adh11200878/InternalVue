@@ -7,7 +7,7 @@
     <div class="d-flex align-center justify-space-between w-100">
       <!-- 圖示與訊息 -->
       <div class="d-flex align-center">
-        <v-icon class="mr-2 bounce-icon" :color="snackbar.iconColor" size="28">
+        <v-icon class="mr-2 bounce-icon" size="28">
           {{ snackbar.icon }}
         </v-icon>
         <span class="text-body-1 font-weight-medium">

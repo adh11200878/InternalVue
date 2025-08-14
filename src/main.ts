@@ -17,7 +17,7 @@ import { aliases, mdi } from "vuetify/iconsets/mdi";
 
 import App from "./App.vue";
 //引用snackbar替代alert
-import { MessageType, useSnackbarStore } from "./stores/snackbar";
+import { useSnackbarStore } from "./stores/snackbar";
 
 //pinia
 const pinia = createPinia();
@@ -39,7 +39,7 @@ router.beforeEach((to, from, next) => {
   const isAuthenticated = !!sessionStorage.getItem("token");
   if (to.meta.requiresAuth && !isAuthenticated) {
     const snackbar = useSnackbarStore();
-    snackbar.trigger("請先登入", MessageType.Warning);
+    snackbar.warning("請先登入");
     next("/login");
   } else {
     next();
