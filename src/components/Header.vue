@@ -84,14 +84,13 @@ function goToProfile() {
 
 //登出按鈕
 async function logout() {
-  const snackbar = useSnackbarStore();
-  snackbar.success("登出失敗");
-  // const success = authLogOut(); // 執行登出邏輯
-  // if (success) {
-  //   router.push('./login'); // 導向登入頁面
-  // } else {
-  //   snackbar.trigger("登出失敗", MessageType.error);
-  // }
+  const success = authLogOut(); // 執行登出邏輯
+  if (success) {
+    router.push('./login'); // 導向登入頁面
+  } else {
+    const snackbar = useSnackbarStore();
+    snackbar.error("登出失敗");
+  }
 }
 
 onMounted(() => {
