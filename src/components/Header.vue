@@ -1,11 +1,11 @@
 <template>
   <!-- 頁首工具列 -->
-  <v-app-bar scroll-behavior="elevate" color="primary" flat>
-    <!-- 漢堡選單按鈕，控制抽屜開關 -->
-    <v-app-bar-nav-icon @click="drawer = !drawer" />
+  <v-app-bar scroll-behavior="elevate" color="primary" flat app>
+    <!-- 漢堡選單 -->
+    <v-app-bar-nav-icon @click="isDrawerOpen = !isDrawerOpen" />
 
     <!-- 網站標題 -->
-    <router-link to="/" class="ml-8" style="text-decoration: none; color: inherit; cursor: pointer;">
+    <router-link to="/" class="site-title-link">
       <v-toolbar-title>我的網站</v-toolbar-title>
     </router-link>
 
@@ -13,12 +13,24 @@
     <v-spacer />
 
     <!-- 通知按鈕 -->
-    <v-btn icon>
-      <v-icon>mdi-bell</v-icon>
-    </v-btn>
+    <v-menu offset-y>
+      <template #activator="{ props }">
+        <v-btn icon v-bind="props">
+          <v-icon>mdi-bell</v-icon>
+        </v-btn>
+      </template>
+      <v-list>
+        <v-list-item @click="goToProfile">
+          <v-list-item-title>個人資料</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="logout">
+          <v-list-item-title>登出</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
 
-    <!-- 帳號按鈕 + 下拉選單 -->
-    <v-menu offset-y class="ml-8">
+    <!-- 帳號下拉選單 -->
+    <v-menu offset-y>
       <template #activator="{ props }">
         <v-btn icon v-bind="props">
           <v-icon>mdi-account</v-icon>
@@ -33,15 +45,12 @@
         </v-list-item>
       </v-list>
     </v-menu>
-
   </v-app-bar>
 
-  <!-- 側邊抽屜選單 temporary 表示點選外部會自動收合 預設寬度是256 -->
-  <v-navigation-drawer v-model="drawer" temporary :width="300">
+  <!-- 側邊選單 -->
+  <v-navigation-drawer v-model="isDrawerOpen" app temporary :width="300">
     <v-list nav density="comfortable">
-      <!-- 使用 MenuItem 元件遞迴渲染選單項目 -->
-      <!-- 加上 key，提升渲染效能 -->
-      <MenuItem v-for="(item, index) in menuItems" :key="index" :item="item" />
+      <MenuItem v-for="(item, index) in menuItems" :key="item.id ?? index" :item="item" />
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -50,33 +59,55 @@
 import { ref, onMounted } from "vue";
 import MenuItem from "./MenuItem.vue";
 import api from "../utils/axiosUtils";
+import { authLogOut } from "../services/auth";
+import { useRouter } from 'vue-router'
+//引用snackbar替代alert
+import { useSnackbarStore } from "../stores/snackbar";
 
-// 控制抽屜開關狀態
-const drawer = ref(false);
-
-// 儲存選單資料
+const router = useRouter()
+const isDrawerOpen = ref(false);
 const menuItems = ref([]);
 
-// 元件掛載時載入選單資料
-onMounted(async () => {
+async function loadMenuItems() {
   try {
-    // const response = await fetch('/menu.json')
-    // menuItems.value = await response.json()
-    // axiosUtils 取得 API 資料
-    const response = await api.get("http://localhost:5110/weatherforecast");
-    // console.log('完整回應：', response)
-    // console.log('回應資料：', response.data)
-    // 將取得的資料指派給 menuItems
-    menuItems.value = response.data;
+    const { data } = await api.get("http://localhost:5110/weatherforecast");
+    menuItems.value = data;
   } catch (error) {
-    // 錯誤處理，避免程式崩潰
-    alert(`菜單抓取異常: ${error}`);
+    console.error("菜單資料載入失敗：", error);
+    alert("菜單載入失敗，請稍後再試。");
   }
+}
+
+function goToProfile() {
+  console.log("前往個人資料頁");
+}
+
+//登出按鈕
+async function logout() {
+  const snackbar = useSnackbarStore();
+  snackbar.success("登出失敗");
+  // const success = authLogOut(); // 執行登出邏輯
+  // if (success) {
+  //   router.push('./login'); // 導向登入頁面
+  // } else {
+  //   snackbar.trigger("登出失敗", MessageType.error);
+  // }
+}
+
+onMounted(() => {
+  loadMenuItems();
 });
 </script>
 
 <style scoped>
-.v-toolbar-title:hover {
+.site-title-link {
+  margin-left: 2rem;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.site-title-link:hover {
   opacity: 0.5;
 }
 </style>

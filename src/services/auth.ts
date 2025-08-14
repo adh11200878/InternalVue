@@ -15,3 +15,14 @@ export async function authLogin(loginData: LoginModel): Promise<boolean> {
     return false;
   }
 }
+
+//登出邏輯
+export function authLogOut(): boolean {
+  try {
+    sessionStorage.removeItem("token");
+    return true;
+  } catch (error) {
+    console.error("登出失敗:", error);
+    return false;
+  }
+}
