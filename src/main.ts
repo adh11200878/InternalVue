@@ -35,7 +35,7 @@ const vuetify = createVuetify({
 });
 
 //全域路由守衛 (to是要進入的路由 from是要離開的路由 next是繼續)
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   const isAuthenticated = !!sessionStorage.getItem("token");
   if (to.meta.requiresAuth && !isAuthenticated) {
     const snackbar = useSnackbarStore();
