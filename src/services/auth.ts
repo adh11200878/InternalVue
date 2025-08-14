@@ -1,5 +1,5 @@
-import api from "../utils/axiosUtils";
-import type { LoginModel } from "../models/LoginModel";
+import api from "@/utils/axiosUtils";
+import type { LoginModel } from "@/models/LoginModel";
 
 //登入邏輯
 export async function authLogin(loginData: LoginModel): Promise<boolean> {

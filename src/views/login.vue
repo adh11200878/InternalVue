@@ -30,8 +30,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { authLogin } from "../services/auth";
-import type { LoginModel } from "../models/LoginModel";
+import { authLogin } from "@/services/auth";
+import type { LoginModel } from "@/models/LoginModel";
 
 
 const router = useRouter();

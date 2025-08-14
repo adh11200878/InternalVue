@@ -58,11 +58,11 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import MenuItem from "./MenuItem.vue";
-import api from "../utils/axiosUtils";
-import { authLogOut } from "../services/auth";
+import api from "@/utils/axiosUtils";
+import { authLogOut } from "@/services/auth";
 import { useRouter } from 'vue-router'
 //引用snackbar替代alert
-import { useSnackbarStore } from "../stores/snackbar";
+import { useSnackbarStore } from "@/stores/snackbar";
 
 const router = useRouter()
 const isDrawerOpen = ref(false);

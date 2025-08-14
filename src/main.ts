@@ -3,7 +3,7 @@ import "@mdi/font/css/materialdesignicons.css"; //icon的css
 import "./style.scss";
 
 //router
-import router from "./router/router";
+import router from "@/router/router";
 //pinia
 import { createPinia } from "pinia";
 // Vuetify
@@ -17,7 +17,7 @@ import { aliases, mdi } from "vuetify/iconsets/mdi";
 
 import App from "./App.vue";
 //引用snackbar替代alert
-import { useSnackbarStore } from "./stores/snackbar";
+import { useSnackbarStore } from "@/stores/snackbar";
 
 //pinia
 const pinia = createPinia();

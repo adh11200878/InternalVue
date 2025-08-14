@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // 引入 Pinia 的 loading 狀態管理 store
-import { useLoadingStore } from "../stores/loading";
+import { useLoadingStore } from "@/stores/loading";
 
 // 建立一個 axios 實例，設定基本的 API 路徑與逾時時間
 const api = axios.create({

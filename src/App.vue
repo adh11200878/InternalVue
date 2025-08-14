@@ -32,8 +32,8 @@
 
 </template>
 <script setup lang="ts">
-import { useSnackbarStore } from "./stores/snackbar";
-import { useLoadingStore } from './stores/loading';
+import { useSnackbarStore } from "@/stores/snackbar";
+import { useLoadingStore } from '@/stores/loading';
 const snackbar = useSnackbarStore();
 const loadingStore = useLoadingStore();
 </script>
