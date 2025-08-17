@@ -1,48 +1,59 @@
 import axios from "axios";
-
-// 引入 Pinia 的 loading 狀態管理 store
 import { useLoadingStore } from "@/stores/loading";
 
-// 建立一個 axios 實例，設定基本的 API 路徑與逾時時間
+// 建立 axios 實例
 const api = axios.create({
-  baseURL: "http://localhost:5110/", // API 的根路徑
-  timeout: 10000, // 請求逾時時間（毫秒）
+  baseURL: "http://localhost:5110/",
+  timeout: 10000, // 逾時時間 (毫秒)
 });
 
-// 設定請求攔截器：在每次發送請求前執行
+// 請求攔截器
 api.interceptors.request.use(
   (config) => {
-    const loading = useLoadingStore(); // 取得 loading store 實例
-    loading.show(); // 顯示 loading 畫面
-
-    // 取得 JWT Token 並加入 Authorization 標頭
+    const loading = useLoadingStore();
+    loading.show();
+    // 加入 JWT Token
     const token = sessionStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-
-    return config; // 回傳請求設定
+    return config;
   },
   (error) => {
     const loading = useLoadingStore();
-    loading.hide(); // 發送失敗時隱藏 loading
-    return Promise.reject(error); // 拋出錯誤
+    loading.hide();
+    return Promise.reject(error);
   }
 );
 
-// 設定回應攔截器：在每次接收到回應後執行
+// 回應攔截器
 api.interceptors.response.use(
   (response) => {
     const loading = useLoadingStore();
-    loading.hide(); // 成功回應後隱藏 loading
-    return response; // 回傳回應資料
+    loading.hide();
+    return response;
   },
   (error) => {
     const loading = useLoadingStore();
-    loading.hide(); // 回應錯誤時隱藏 loading
-    return Promise.reject(error); // 拋出錯誤
+    loading.hide();
+    // 取得回應與狀態碼
+    const { response } = error;
+    // === 錯誤處理 ===
+    if (response) {
+      // 有收到伺服器回應
+      if (response.status === 401) {
+        // JWT 無效或過期
+        console.warn("未授權，請重新登入");
+        // 清掉 token
+        sessionStorage.removeItem("token");
+        // 導向登入頁 (視情況改成 router.push)
+        window.location.href = "/login";
+      }
+    } else {
+      alert("連線異常！");
+    }
+    return Promise.reject(error);
   }
 );
 
-// 將設定好的 axios 實例匯出，供其他檔案使用
 export default api;
