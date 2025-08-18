@@ -26,6 +26,11 @@ const routes = [
       },
     ],
   },
+  // catch-all 404 路由(未定義路由就導向404)
+  {
+    path: "/:pathMatch(.*)*",
+    component: () => import("@/views/404.vue"),
+  },
 ];
 
 const router = createRouter({
