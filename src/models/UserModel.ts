@@ -1,9 +1,9 @@
-export interface Employee {
+export interface UserModel {
   id: string;
   userName: string;
   email: string;
 }
-export interface SearchEmployee {
+export interface SearchUserModel {
   userName: string;
   email: string;
 }
