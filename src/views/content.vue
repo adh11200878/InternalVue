@@ -26,7 +26,7 @@ import api from "../utils/axiosUtils";
 import type { UserModel, SearchUserModel } from "../models/UserModel";
 //引用snackbar替代alert
 import { useSnackbarStore } from "../stores/snackbar";
-
+const snackbar = useSnackbarStore();
 const employees = ref<UserModel[]>([]);
 // 新增搜尋欄位綁定
 const search = ref<SearchUserModel>({
@@ -44,8 +44,7 @@ const SelectData = async () => {
     const response = await api.post("/User/GetBySearch", search.value);
     employees.value = response.data;
   } catch (err) {
-    const snackbar = useSnackbarStore();
-    snackbar.warning("請先登入");
+    snackbar.warning("搜尋異常");
   }
 };
 
