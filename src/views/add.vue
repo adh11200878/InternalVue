@@ -50,54 +50,46 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { ref, reactive } from "vue";
 import api from "../utils/axiosUtils";
 
-export default {
-  setup() {
-    // 單一檔案
-    const file = ref<File | null>(null);
+// 單一檔案
+const file = ref<File | null>(null);
 
-    // 表單資料
-    const form = reactive({
-      userName: "",
-      passWord: "",
-      email: "",
-    });
+// 表單資料
+const form = reactive({
+  userName: "",
+  passWord: "",
+  email: "",
+});
 
-    // 檔案變動事件
-    const onFileChange = (event: Event) => {
-      const target = event.target as HTMLInputElement;
-      if (target.files && target.files.length > 0) {
-        file.value = target.files[0];
-      }
-    };
+// 檔案變動事件
+const onFileChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  if (target.files && target.files.length > 0) {
+    file.value = target.files[0];
+  }
+};
 
-    // 提交表單
-    const submitForm = async () => {
-      if (!file.value) {
-        alert("請選擇檔案");
-        return;
-      }
-
-      const formData = new FormData();
-      console.log(new Date().toISOString());
-      formData.append("UserName", form.userName);
-      formData.append("PassWord", form.passWord);
-      formData.append("Email", form.email);
-      formData.append("File", file.value);
-      formData.append("CreatedAt", new Date().toISOString());
-
-      try {
-        const response = await api.post("User/Create", formData);
-        console.log("上傳成功", response.data);
-      } catch (err: any) {
-        console.error("上傳失敗", err.response?.data || err.message);
-      }
-    };
-
-    return { form, file, onFileChange, submitForm };
-  },
+// 提交表單
+const submitForm = async () => {
+  if (!file.value) {
+    alert("請選擇檔案");
+    return;
+  }
+  const formData = new FormData();
+  console.log(new Date().toISOString());
+  formData.append("UserName", form.userName);
+  formData.append("PassWord", form.passWord);
+  formData.append("Email", form.email);
+  formData.append("File", file.value);
+  formData.append("CreatedAt", new Date().toISOString());
+  try {
+    const response = await api.post("User/Create", formData);
+    console.log("上傳成功", response.data);
+  } catch (err: any) {
+    console.error("上傳失敗", err.response?.data || err.message);
+  }
 };
 </script>
